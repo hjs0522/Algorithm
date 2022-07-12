@@ -9,6 +9,7 @@ i번 정점에 쌓인 물의 양의 기댓값을 pi라 할때, pi가 0보다 큰
 노드의 수  n 물의 양 w 
 """
 
+"""
 from collections import defaultdict, deque
 
 
@@ -41,4 +42,24 @@ def main():
         if flag:
          cnt+=1
     print('%.10f' %(w/cnt))
+main()
+"""
+
+from collections import defaultdict
+
+def main():
+    n,w = map(int,input().split())
+    tree = defaultdict(list)
+    
+    for i in range(n-1):
+        node1,node2 = map(int,input().split())
+        tree[node1].append(node2)
+        tree[node2].append(node1)
+    
+    cnt = 0
+    for key in tree:
+        if len(tree[key]) == 1 and key != 1:
+           cnt+=1
+    print('%.10f' %(w/cnt))
+    
 main()
