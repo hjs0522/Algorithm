@@ -29,17 +29,26 @@ def main():
     for i in range(len(order)):
         GfavorCnt = 0
         GemptyCnt = 0
-        for y in range(n):
-         for x in range(n):
-            if seat[y][x] == -1:
-                loc = [y,x]
-                break
+        
+        #가장 위에 있는 빈칸위치 저장
+        flag = False
         for y in range(n):
             for x in range(n):
+                if seat[y][x] == -1:
+                    loc = [y,x]
+                    flag = True
+                    break
+            if flag:
+                break
+        
+        for y in range(n):
+            for x in range(n):
+                #빈칸을 찾음
                 if seat[y][x] != -1:
                  continue
                 favorCnt = 0
                 emptyCnt = 0
+                #찾은 빈칸의 주변에 선호하는 사람이 있는지, 빈칸은 몇개인지 계산
                 for k in range(4):
                     newY = y+dy[k]
                     newX = x +dx[k]
@@ -48,12 +57,13 @@ def main():
                             favorCnt+=1
                         elif seat[newY][newX] == -1:
                             emptyCnt += 1
-                if GfavorCnt < favorCnt and seat[y][x] == -1:
+                #선호하는 사람이 더 많다면 자리저장
+                if GfavorCnt < favorCnt:
                     GfavorCnt = favorCnt
-                    if GemptyCnt < emptyCnt:
-                     GemptyCnt = emptyCnt
+                    GemptyCnt = emptyCnt
                     loc = [y,x]
-                elif GfavorCnt == favorCnt and seat[y][x] == -1:
+                #선호하는 사람의 수가 같은 경우 빈칸이 더 많은 곳 저장
+                elif GfavorCnt == favorCnt:
                     if GemptyCnt < emptyCnt:
                         GemptyCnt = emptyCnt
                         loc = [y,x]
@@ -77,7 +87,6 @@ def main():
                 ans+=100
             elif cnt == 4:
                 ans+=1000
-                
     print(ans)
 
 main()
