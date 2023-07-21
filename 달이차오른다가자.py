@@ -29,7 +29,7 @@ def bfs(x,y):
                 if key & (1<< (ord(board[nx][ny]) - ord('A'))):
                     check[nx][ny][key] = True
                     q.append((nx,ny,cnt+1,key))
-
+    return -1
 
 N,M = map(int,input().split())
 board = [list(input()) for _ in range(N)]
