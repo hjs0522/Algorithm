@@ -1,3 +1,4 @@
+"""
 def solution(p):
     answer = ''
     u = ''
@@ -40,3 +41,29 @@ def solution(p):
                     new_u += '('
             answer = '('+solution(v)+')'+new_u
             return answer
+"""
+def solution(p):
+    answer = ''
+    if p =='':
+        return p
+    res = 0
+    flag = True
+    for idx,i in enumerate(p):
+        if i == '(':
+            res+=1
+        elif i==')':
+            res -=1
+        if res == 0:
+            if flag:
+                return p[:idx+1] + solution(p[idx+1:])
+            else:
+                temp = ''
+                for j in range(1,idx):
+                    if p[j] == '(':
+                        temp+=')'
+                    else:
+                        temp+='('
+                return '(' + solution(p[idx+1:]) + ')'+temp
+        if res < 0:
+            flag = False
+print(solution("(()())()"))
